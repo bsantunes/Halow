@@ -1,9 +1,48 @@
 #!/bin/bash
 
-# Exit if interface or config file is not provided
-if [[ -z "$1" || -z "$2" ]]; then
+
+# ==============================================================================
+# SCRIPT: wifi-arg.sh (v10 - With Frequency)
+# AUTHOR: Gemini
+# DESCRIPTION: Scans for and lists available Wi-Fi networks using 'iw'.
+#              Run as normal user. Uses sudo internally where needed.
+#              Features:
+#              - Explicit Interface Selection
+#              - Intelligent Retry Loop for Scanning
+#              - Robust Output Parsing (SSID, Freq, Channel, Signal, Security)
+#              - Optional Regulatory Domain setting (--reg)
+# REQUIREMENTS: iw, iproute2, sudo
+# USAGE: ./wifi-arg.sh <interface> [--reg <COUNTRY_CODE>]
+# EXAMPLE: ./wifi-arg.sh wlan0
+# ==============================================================================
+
+# --- Configuration ---
+COLOR_HEADER=$'\033[1;34m' # Bold Blue
+COLOR_ERROR=$'\033[1;31m'  # Bold Red
+COLOR_NONE=$'\033[0m'     # No Color
+
+SCAN_TIMEOUT=15
+RETRY_INTERVAL=1
+
+# --- Sanity Checks & Setup ---
+
+SUDO_CMD=""
+if [[ $EUID -ne 0 ]]; then
+    if ! command -v sudo &> /dev/null; then
+        echo -e "${COLOR_ERROR}Error: 'sudo' command not found. Please run this script as root.${COLOR_NONE}"
+        exit 1
+    fi
+    SUDO_CMD="sudo"
+fi
+
+# --- Check if an interface is provided ---
+if [[ -z "$1" ]]; then
+    echo -e "${COLOR_ERROR}Error: No wireless interface specified.${COLOR_NONE}"
     echo "Usage: $0 <interface> <config_file>"
-    echo "Example: ./wifi-connect.sh wlan1 wpa_supplicant_us.conf"
+    echo "Example: ./wifi-connect.sh wlan1 wpa_supplicant.conf"
+    echo ""
+    echo "Available wireless interfaces:"
+    iw dev | grep 'Interface' | awk '{print "  - " $2}' || echo "  (Could not find any)"
     exit 1
 fi
 
