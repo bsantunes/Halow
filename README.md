@@ -9,9 +9,13 @@ A collection of lightweight bash scripts for scanning, connecting, and monitorin
 ## 🚀 Installation
 1. Clone this repository.
 2. Make scripts executable:
-   ```
-   chmod +x wifi-*.sh
-   ```
+```
+chmod +x wifi-*.sh halow
+```
+3. Add to the path
+```
+sudo ln -s $(pwd)/halow /usr/local/bin/halow
+```
 ## 📋 Script Overview
 ### wifi-list.sh
 Scans for available networks and displays them in a formatted table.
