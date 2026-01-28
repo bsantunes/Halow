@@ -1,9 +1,45 @@
 #!/bin/bash
 
-# Check if an interface is provided
+# ==============================================================================
+# SCRIPT: wifi-stats.sh
+# AUTHOR: Gemini
+# DESCRIPTION: Print interface connection.
+#              Run as normal user. Uses sudo internally where needed.
+#              Features:
+#              - Explicit Interface Selection
+#              - Intelligent Retry Loop for Scanning
+#              - Robust Output Parsing
+# REQUIREMENTS: iw, iproute2, sudo
+# USAGE: ./wifi-stats.sh <interface>
+# EXAMPLE: ./wifi-stats.sh wlan0
+# ==============================================================================
+
+# --- Configuration ---
+COLOR_HEADER=$'\033[1;34m' # Bold Blue
+COLOR_ERROR=$'\033[1;31m'  # Bold Red
+COLOR_NONE=$'\033[0m'     # No Color
+
+SCAN_TIMEOUT=15
+RETRY_INTERVAL=1
+
+# --- Sanity Checks & Setup ---
+
+SUDO_CMD=""
+if [[ $EUID -ne 0 ]]; then
+    if ! command -v sudo &> /dev/null; then
+        echo -e "${COLOR_ERROR}Error: 'sudo' command not found. Please run this script as root.${COLOR_NONE}"
+        exit 1
+    fi
+    SUDO_CMD="sudo"
+fi
+
+# --- Check if an interface is provided ---
 if [ -z "$1" ]; then
-    echo "Usage: $0 <wireless_interface>"
-    echo "Example: $0 wlan0"
+    echo -e "${COLOR_ERROR}Error: No wireless interface specified.${COLOR_NONE}"
+    echo "Usage: $0 <interface_name>"
+    echo ""
+    echo "Available wireless interfaces:"
+    iw dev | grep 'Interface' | awk '{print "  - " $2}' || echo "  (Could not find any)"
     exit 1
 fi
 
