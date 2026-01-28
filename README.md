@@ -16,6 +16,22 @@ chmod +x wifi-*.sh halow
 ```
 sudo ln -s $(pwd)/halow /usr/local/bin/halow
 ```
+## ⌨️ Usage
+### Scan for Networks
+Scan for available access points using a specific interface.
+```
+halow list wlan0
+```
+### Connect to a Network
+Start wpa_supplicant and obtain a DHCP lease using a config file.
+```
+halow connect wlan0 wpa_supplicant.conf
+```
+### Monitor Stats
+View real-time signal strength and bitrate.
+```
+halow stats wlan0
+```
 ## 📋 Script Overview
 ### wifi-list.sh
 Scans for available networks and displays them in a formatted table.
