@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ==============================================================================
-# SCRIPT: list_wifi_arg.sh (v10 - With Frequency)
+# SCRIPT: wifi-arg.sh (v10 - With Frequency)
 # AUTHOR: Gemini
 # DESCRIPTION: Scans for and lists available Wi-Fi networks using 'iw'.
 #              Run as normal user. Uses sudo internally where needed.
@@ -11,8 +11,8 @@
 #              - Robust Output Parsing (SSID, Freq, Channel, Signal, Security)
 #              - Optional Regulatory Domain setting (--reg)
 # REQUIREMENTS: iw, iproute2, sudo
-# USAGE: ./list_wifi_arg.sh <interface> [--reg <COUNTRY_CODE>]
-# EXAMPLE: ./list_wifi_arg.sh wlan0
+# USAGE: ./wifi-arg.sh <interface> [--reg <COUNTRY_CODE>]
+# EXAMPLE: ./wifi-arg.sh wlan0
 # ==============================================================================
 
 # --- Configuration ---
@@ -34,6 +34,7 @@ if [[ $EUID -ne 0 ]]; then
     SUDO_CMD="sudo"
 fi
 
+# --- Check if an interface is provided ---
 if [[ -z "$1" ]]; then
     echo -e "${COLOR_ERROR}Error: No wireless interface specified.${COLOR_NONE}"
     echo "Usage: $0 <interface_name> [--reg <COUNTRY_CODE>]"
