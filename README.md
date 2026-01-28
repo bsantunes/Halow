@@ -9,5 +9,33 @@ A collection of lightweight bash scripts for scanning, connecting, and monitorin
 ## 🚀 Installation
 1. Clone this repository.
 2. Make scripts executable:
-   ```bash
+   ```
    chmod +x wifi-*.sh
+   ```
+## 📋 Script Overview
+### wifi-list.sh
+Scans for available networks and displays them in a formatted table.
+```
+Usage: ./wifi-list.sh <interface> [--reg <COUNTRY_CODE>]
+```
+```
+Example: ./wifi-list.sh wlan0 --reg EU
+```
+### wifi-connect.sh
+Connects to a network using a provided wpa_supplicant configuration file.
+```
+Usage: ./wifi-connect.sh <interface> <config_file>
+```
+```
+Example: ./wifi-connect.sh wlan0 my_wifi.conf
+```
+Note: This script handles stale socket cleanup and automatically requests an IP via DHCP.
+
+### wifi-stats.sh
+Real-time monitor for signal strength and bitrate of the current connection.
+```
+Usage: ./wifi-stats.sh <interface>
+```
+```
+Example: ./wifi-stats.sh wlan0
+```
