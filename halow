@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Define the directory where scripts are located
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+usage() {
+    echo "Usage: halow <command> [args]"
+    echo ""
+    echo "Commands:"
+    echo "  list <iface>             Scan for networks (wifi-list.sh)"
+    echo "  connect <iface> <conf>   Connect to a network (wifi-connect.sh)"
+    echo "  stats <iface>            Monitor connection (wifi-stats.sh)"
+    echo ""
+    exit 1
+}
+
+case "$1" in
+    list)
+        shift; "$DIR/wifi-list.sh" "$@" ;;
+    connect)
+        shift; "$DIR/wifi-connect.sh" "$@" ;;
+    stats)
+        shift; "$DIR/wifi-stats.sh" "$@" ;;
+    *)
+        usage ;;
+esac
