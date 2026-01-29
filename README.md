@@ -15,6 +15,9 @@ chmod +x wifi-*.sh halow
 3. Add to the path
 ```
 sudo ln -s $(pwd)/halow /usr/local/bin/halow
+sudo ln -s $(pwd)/wifi-list.sh /usr/local/bin/wifi-list.sh
+sudo ln -s $(pwd)/wifi-connect.sh /usr/local/bin/wifi-connect.sh
+sudo ln -s $(pwd)/wifi-stats.sh /usr/local/bin/wifi-stats.sh
 ```
 ## ⌨️ Usage
 ### Scan for Networks
