@@ -18,6 +18,7 @@ sudo ln -s $(pwd)/halow /usr/local/bin/halow
 sudo ln -s $(pwd)/wifi-list.sh /usr/local/bin/wifi-list.sh
 sudo ln -s $(pwd)/wifi-connect.sh /usr/local/bin/wifi-connect.sh
 sudo ln -s $(pwd)/wifi-stats.sh /usr/local/bin/wifi-stats.sh
+sudo ln -s $(pwd)/rpi_monitor_pro.sh /usr/local/bin/rpi_monitor_pro.sh
 ```
 ## ⌨️ Usage
 ### Scan for Networks
