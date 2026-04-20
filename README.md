@@ -10,7 +10,7 @@ A collection of lightweight bash scripts for scanning, connecting, and monitorin
 1. Clone this repository.
 2. Make scripts executable:
 ```
-chmod +x wifi-*.sh halow
+chmod +x *.sh halow
 ```
 3. Add to the path
 ```
