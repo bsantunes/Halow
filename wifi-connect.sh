@@ -52,9 +52,9 @@ CONFIG="$2"
 # Cleanup function to kill wpa_supplicant and dhcpcd
 cleanup() {
     echo "Caught Ctrl+C! Killing wpa_supplicant and dhcpcd ..."
-    sudo pkill -f "wpa_supplicant_s1g -D nl80211 -i $INTERFACE -c $CONFIG"
-    sudo dhcpcd -r $INTERFACE
-    sudo pkill -f "dhcpcd -i $INTERFACE"
+    sudo killall -f "wpa_supplicant_s1g_1.16 -D nl80211 -i $INTERFACE -c $CONFIG"
+    sudo dhclient -r $INTERFACE
+    sudo pkill -f "dhclient -i $INTERFACE"
     exit 1
 }
 
@@ -91,11 +91,11 @@ sleep 5
 
 # Release current lease
 echo "Release current lease"
-sudo dhcpcd -r $INTERFACE
+sudo dhclient -r $INTERFACE
 
 # Start DHCP client
-echo "Running dhcpcd on $INTERFACE interface"
-sudo dhcpcd "$INTERFACE"
+echo "Running dhclient on $INTERFACE interface"
+sudo dhclient "$INTERFACE"
 
 # Wait indefinitely or until interrupted
 wait
